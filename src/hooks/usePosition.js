@@ -16,14 +16,16 @@ export default (xDirection, yDirection) => {
   }, [speed]);
 
   function start() {
-    setX(initialX);
-    setY(initialY);
+    //setX(initialX);
+    //setY(initialY);
     setSpeed(initialSpeed);
   }
 
   function stop() {
+    setX(initialX);
+    setY(initialY);
     setSpeed(null);
   }
 
-  return [x, y, stop, start];
+  return [x, y, start, stop];
 };

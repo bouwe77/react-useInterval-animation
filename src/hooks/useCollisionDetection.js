@@ -8,5 +8,5 @@ export default (x, y) => {
     x >= config.canvasWidth - config.shapeSize || y >= config.canvasHeight - config.shapeSize;
   if (c !== collisionDetected) setCollisionDetected(c);
 
-  return collisionDetected;
+  return [collisionDetected];
 };
