@@ -1,5 +1,3 @@
 import React from "react";
 
-export default (x, y) => (
-  <circle cx={x} cy={y} r="10" stroke="Blue" strokeWidth="4" fill="transparent" />
-);
+export default ({ x, y, size }) => <circle cx={x} cy={y} r={size} fill="blue" />;

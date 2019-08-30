@@ -1,7 +1,8 @@
 import React from "react";
 
-export default ({ children }) => (
-  <svg width="400" height="400">
+export default ({ width, height, children }) => (
+  <svg width={width} height={height}>
+    <rect fill="Lightgray" width={width} height={height} />
     {children}
   </svg>
 );
