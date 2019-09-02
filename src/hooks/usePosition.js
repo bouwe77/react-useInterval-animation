@@ -1,31 +1,21 @@
 import { useState } from "react";
-import useInterval from "./useInterval";
 import config from "../configuration";
 
-export default (xDirection, yDirection) => {
+export default () => {
   const initialX = config.shapeSize;
   const initialY = config.shapeSize;
-  const initialSpeed = config.speed;
-  const [speed, setSpeed] = useState(initialSpeed);
   const [x, setX] = useState(initialX);
   const [y, setY] = useState(initialY);
 
-  useInterval(() => {
+  function updatePosition(xDirection, yDirection) {
     setX(x + xDirection);
     setY(y + yDirection);
-  }, [speed]);
-
-  function start() {
-    //setX(initialX);
-    //setY(initialY);
-    setSpeed(initialSpeed);
   }
 
-  function stop() {
+  function reset() {
     setX(initialX);
     setY(initialY);
-    setSpeed(null);
   }
 
-  return [x, y, start, stop];
+  return [x, y, updatePosition, reset];
 };

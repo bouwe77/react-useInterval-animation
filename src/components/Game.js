@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import config from "../configuration";
 
+import useInterval from "../hooks/useInterval";
 import usePosition from "../hooks/usePosition";
 import useDirection from "../hooks/useDirection";
 import useCollisionDetection from "../hooks/useCollisionDetection";
 
+import GameOver from "./GameOver";
 import Canvas from "./Canvas";
 import Shape from "./Shape";
 import Buttons from "./Buttons";
@@ -13,9 +15,28 @@ import c from "../constants";
 
 export default () => {
   const [xDirection, yDirection, changeDirection, resetDirection] = useDirection();
-  const [x, y, start, stop] = usePosition(xDirection, yDirection);
+  const [x, y, updatePosition, resetPosition] = usePosition();
   const [collisionDetected] = useCollisionDetection(x, y);
   const [gameStatus, setGameStatus] = useState(c.STARTED);
+  const [speed, setSpeed] = useState(null);
+
+  useEffect(() => {
+    start();
+  }, [start]);
+
+  function start() {
+    resetPosition();
+    resetDirection();
+    setSpeed(100);
+  }
+
+  function stop() {
+    setSpeed(null);
+  }
+
+  useInterval(() => {
+    updatePosition(xDirection, yDirection);
+  }, speed);
 
   useEffect(() => {
     if (collisionDetected) {
@@ -23,18 +44,11 @@ export default () => {
     }
   }, [collisionDetected]);
 
-  // useEffect(() => {
-  //   if (gameStatus === c.STARTING) {
-  //     resetDirection();
-  //     start();
-  //   } else if (gameStatus === c.GAMEOVER) {
-  //     stop();
-  //   }
-  // }, [gameStatus, stop, start, resetDirection]);
-
-  function restart2() {
-    setGameStatus(c.STARTING);
-  }
+  useEffect(() => {
+    if (gameStatus === c.GAMEOVER) {
+      stop();
+    }
+  }, [gameStatus]);
 
   return (
     <>
@@ -45,6 +59,8 @@ export default () => {
         <Buttons changeDirection={changeDirection} />
         <Score />
       </div>
+
+      {gameStatus === c.GAMEOVER ? <GameOver tryAgain={start} /> : null}
     </>
   );
 };

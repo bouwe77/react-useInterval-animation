@@ -1,10 +1,10 @@
 import React from "react";
 
-export default ({ restart }) => (
+export default ({ tryAgain }) => (
   <>
     GAME OVER... :(
     <div>
-      <button onClick={restart}>Try again!</button>
+      <button onClick={tryAgain}>Try again!</button>
     </div>
   </>
 );
