@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import config from "../configuration";
 
 import useInterval from "../hooks/useInterval";
@@ -20,15 +20,15 @@ export default () => {
   const [gameStatus, setGameStatus] = useState(c.STARTED);
   const [speed, setSpeed] = useState(null);
 
-  useEffect(() => {
-    start();
-  }, [start]);
-
-  function start() {
+  const start = () => {
     resetPosition();
     resetDirection();
     setSpeed(100);
-  }
+  };
+
+  useEffect(() => {
+    start();
+  }, []);
 
   function stop() {
     setSpeed(null);
