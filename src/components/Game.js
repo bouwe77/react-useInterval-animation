@@ -20,6 +20,14 @@ export default () => {
   const [gameStatus, setGameStatus] = useState(c.STARTED);
   const [speed, setSpeed] = useState(null);
 
+TODO De game werkt niet meer want deze useEffects zitten elkaar in de weg.
+Als ik de deps fix dan moet ik useCallback gebruiken.
+Waarschijnlijk is de oplossing dat ik een custom hook maak die de game status regelt
+zodat ik minder last heb van dependencies en zo... Dat was toen ook zo bij de 
+useTimeline custom hook van nitwit. Toen ik daar een hook van maakte loste ik zomaar
+al mijn useEffect/useCallback gedoe op. Wat daarbij ook funest was was dat ik minder
+verschillende useEffects ging gebruiken.
+
   const start = () => {
     resetPosition();
     resetDirection();
